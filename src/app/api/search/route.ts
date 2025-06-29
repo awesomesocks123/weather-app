@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     );
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: "Search failed" }, { status: 500 });
   }
 }

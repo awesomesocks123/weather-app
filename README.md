@@ -1,6 +1,6 @@
 # Weather-Based Outfit Color Palette
 
-Check it out here: [https://weather-l4er3lgdn-sdfs-projects-23d4ae34.vercel.app/](https://weather-l4er3lgdn-sdfs-projects-23d4ae34.vercel.app/)
+Check it out here: [Weather Color Picker](https://weather-app-puce-pi-66.vercel.app/)
 
 A modern web app that suggests color palettes for outfits based on live weather conditions in any city worldwide.
 

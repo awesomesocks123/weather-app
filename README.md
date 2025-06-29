@@ -1,18 +1,19 @@
-# Weather-Based Outfit Color Palette
+# Outfit Color Palette
 
 Check it out here: [Weather Color Picker](https://weather-app-puce-pi-66.vercel.app/)
 
-A modern web app that suggests color palettes for outfits based on live weather conditions in any city worldwide.
+A simple web-app that suggests color palettes for outfits based on live weather conditions in any city worldwide.
 
 ## Features
 - Search for any city and view current weather conditions
 - Get weather-based color palette suggestions for your outfit
-- Clean, mobile-friendly UI
+- Don't like it? Shuffle for a new color palette !
 
 ## Tech Stack
 - **Frontend:** React 19, Next.js 15 (App Router), Tailwind CSS, DaisyUI
 - **Backend/API:** Next.js API Routes (Edge/serverless functions)
 - **Weather Data:** [WeatherAPI.com](https://weatherapi.com)
+- **Color Data:** [Using Sanzo Wada's color combination via mattdesl dicionary of colour combinations](https://github.com/mattdesl/dictionary-of-colour-combinations)
 - **Deployment:** Vercel
 
 ## How It Works

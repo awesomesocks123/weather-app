@@ -44,9 +44,9 @@ export default function ColorPalette() {
   };
 
   return (
-    <div className="space-y-4 flex flex-col items-center">
+    <div className="space-y-4 flex flex-col items-center w-full">
       {/* Color Grid */}
-      <div className="grid grid-cols-2 gap-2 h-[500px]">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 min-h-[220px] sm:min-h-[320px] w-full max-w-xs sm:max-w-md">
         {colorBlocks.map((color, i) =>
           color ? (
             <div
@@ -54,10 +54,10 @@ export default function ColorPalette() {
               className="flex flex-col items-center justify-center text-center"
             >
               <div
-                className="w-34 h-30 rounded shadow"
+                className="w-20 h-16 sm:w-28 sm:h-24 rounded shadow border border-white"
                 style={{ backgroundColor: color.hex }}
               />
-              <span className="text-sm mt-2 text-white">{color.name}</span>
+              <span className="text-xs sm:text-sm mt-2 text-white break-words max-w-[80px]">{color.name}</span>
             </div>
           ) : (
             <div key={i} className="invisible w-28 h-16" />
@@ -66,16 +66,16 @@ export default function ColorPalette() {
       </div>
 
       {/* Buttons fixed in place below */}
-      <div className="flex gap-2 mt-4">
+      <div className="flex flex-col sm:flex-row gap-2 mt-4 w-full max-w-xs sm:max-w-md">
         <button
           onClick={shuffle}
-          className="btn bg-black text-white px-4 py-1 rounded shadow"
+          className="btn bg-black text-white px-4 py-2 rounded shadow w-full sm:w-auto text-base"
         >
           Shuffle
         </button>
         <button
           onClick={handleCopy}
-          className="btn bg-white text-black px-4 py-1 rounded shadow"
+          className="btn bg-white text-black px-4 py-2 rounded shadow w-full sm:w-auto text-base"
         >
           Copy HEX Codes
         </button>

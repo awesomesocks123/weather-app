@@ -91,13 +91,13 @@ export default function Weather() {
 
   return (
     <div
-      className={`h-screen flex flex-col items-center justify-center bg-gradient-to-r ${gradient} gap-6 px-4`}
+      className={`min-h-screen flex flex-col items-center justify-center bg-gradient-to-r ${gradient} gap-6 px-2 sm:px-4 py-4`}
     >
-      <div className="bg-black/50 text-white p-4 rounded shadow">
-        <h1 className="text-2xl font-bold text-primary-content text-center">
+      <div className="bg-black/50 text-white p-3 sm:p-4 rounded shadow w-full max-w-md">
+        <h1 className="text-xl sm:text-2xl font-bold text-primary-content text-center">
           Weather-Based Outfit Color Palette
         </h1>
-        <p>
+        <p className="text-sm sm:text-base text-center">
           Try these weather-based either single or dual color combos to add some flair to your fit.
         </p>
       </div>
@@ -106,6 +106,7 @@ export default function Weather() {
       <form
         onSubmit={handleSubmit}
         className="form-control w-full max-w-xs relative"
+        autoComplete="off"
       >
         <div className="join w-full">
           <input
@@ -113,22 +114,22 @@ export default function Weather() {
             placeholder="Enter a city"
             value={inputCity}
             onChange={(e) => setInputCity(e.target.value)}
-            className="input input-bordered join-item w-full"
+            className="input input-bordered join-item w-full text-base py-2 sm:py-3"
           />
-          <button type="submit" className="btn btn-primary join-item">
+          <button type="submit" className="btn btn-primary join-item text-base py-2 sm:py-3">
             Search
           </button>
         </div>
 
         {/* Suggestions Dropdown */}
         {suggestions.length > 0 && (
-          <ul className="absolute top-full left-0 w-full bg-base-200 border rounded-box shadow z-10 mt-1 max-h-60 overflow-y-auto">
+          <ul className="absolute top-full left-0 w-full bg-base-200 border rounded-box shadow z-10 mt-1 max-h-48 sm:max-h-60 overflow-y-auto text-sm">
             {suggestions.map((city, idx) => (
               <li key={idx}>
                 <button
                   type="button"
                   onClick={() => handleSelectSuggestion(city.name)}
-                  className="w-full text-left px-4 py-2 hover:bg-base-300"
+                  className="w-full text-left px-3 py-2 hover:bg-base-300"
                 >
                   {city.name}, {city.region}, {city.country}
                 </button>

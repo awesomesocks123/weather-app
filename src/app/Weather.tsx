@@ -107,10 +107,10 @@ export default function Weather() {
     >
       <div className="bg-black/50 text-white p-3 sm:p-4 rounded shadow w-full max-w-md">
         <h1 className="text-xl sm:text-2xl font-bold text-primary-content text-center">
-          Weather-Based Outfit Color Palette
+          Outfit Color Palette
         </h1>
         <p className="text-sm sm:text-base text-center">
-          Try these weather-based either single or dual color combos to add some flair to your fit.
+          Try these color combos to add some flair to your fit.
         </p>
       </div>
 

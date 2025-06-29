@@ -6,8 +6,7 @@ A modern web app that suggests color palettes for outfits based on live weather 
 
 ## Features
 - Search for any city and view current weather conditions
-- Get AI-inspired, weather-based color palette suggestions for your outfit
-- Fast city search with autocomplete suggestions
+- Get weather-based color palette suggestions for your outfit
 - Clean, mobile-friendly UI
 
 ## Tech Stack

@@ -1,83 +1,89 @@
 "use client";
-import colors from "@/app/data/colors.json";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+// Import the dictionary-of-colour-combinations package
+import colorData from "dictionary-of-colour-combinations";
+
+// Define types for the color data based on the actual structure
+interface ColorData {
+  name: string;
+  combinations: number[];
+  swatch: number;
+  cmyk: number[];
+  lab: number[];
+  rgb: number[];
+  hex: string;
+}
 
 export default function ColorPalette() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // State for selected palette and color
+  const [selectedPaletteIndex, setSelectedPaletteIndex] = useState<number | null>(null);
+  
+  // Process the color data to create palettes
+  const colorMap = (colorData as ColorData[]).reduce((map: Map<number, number[]>, color: ColorData, i: number) => {
+    color.combinations.forEach((id: number) => {
+      if (map.has(id)) map.get(id)?.push(i);
+      else map.set(id, [i]);
+    });
+    return map;
+  }, new Map());
+  
+  const palettes = [...colorMap.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(e => e[1]);
 
+  // Select a random palette on mount
   useEffect(() => {
-    setSelectedIndex(getRandomInt(colors.colors.length));
+    shuffle();
+    // eslint-disable-next-line
   }, []);
 
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
 
-  const shuffle = () => {
-    let newIndex = getRandomInt(colors.colors.length);
-    while (newIndex === selectedIndex) {
-      newIndex = getRandomInt(colors.colors.length);
-    }
-    setSelectedIndex(newIndex);
-  };
+  function shuffle() {
+    const newIndex = getRandomInt(palettes.length);
+    setSelectedPaletteIndex(newIndex);
+  }
 
-  if (selectedIndex === null) return null;
+  if (selectedPaletteIndex === null) return null;
 
-  const selectedColor = colors.colors[selectedIndex];
-  const comboColors = selectedColor.combinations
-    .map((index) => colors.colors[index - 1])
-    .filter(Boolean);
-
-  // Fill up to 6 total colors
-  const colorBlocks = [selectedColor, ...comboColors]
-    .concat(Array(6).fill(null))
-    .slice(0, 6);
-
-  const handleCopy = () => {
-    const hexList = colorBlocks
-      .filter(Boolean)
-      .map((c) => c.hex)
-      .join(", ");
-    navigator.clipboard.writeText(hexList).then(() => {
-      alert("Copied to clipboard:\n" + hexList);
-    });
-  };
+  // Get the selected palette and its colors
+  const selectedPalette = palettes[selectedPaletteIndex];
+  const paletteColors = selectedPalette.map((colorIndex: number) => (colorData as ColorData[])[colorIndex]);
 
   return (
-    <div className="space-y-4 flex flex-col items-center w-full">
-      {/* Color Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 min-h-[220px] sm:min-h-[320px] w-full max-w-xs sm:max-w-md">
-        {colorBlocks.map((color, i) =>
-          color ? (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center text-center"
-            >
-              <div
-                className="w-20 h-16 sm:w-28 sm:h-24 rounded shadow border border-white"
-                style={{ backgroundColor: color.hex }}
-              />
-              <span className="text-xs sm:text-sm mt-2 text-white break-words max-w-[80px]">{color.name}</span>
-            </div>
-          ) : (
-            <div key={i} className="invisible w-28 h-16" />
-          )
-        )}
+    <div className="flex flex-col items-center w-full space-y-10">
+      {/* Main Color Block - First color in palette */}
+      <div className="w-full max-w-4xl flex flex-col items-center mb-6">
+        <div
+          className="w-full h-36 sm:h-48 rounded flex items-center justify-center text-2xl sm:text-3xl font-semibold text-black"
+          style={{ background: paletteColors[0]?.hex }}
+        >
+          {paletteColors[0]?.name}
+        </div>
       </div>
 
-      {/* Buttons fixed in place below */}
-      <div className="flex flex-col sm:flex-row gap-2 mt-4 w-full max-w-xs sm:max-w-md">
+      {/* Combination Row */}
+      <div className="flex flex-col gap-4 w-full max-w-4xl">
+        <div className="flex items-center w-full mb-4">
+          <div className="flex flex-1 h-20 rounded overflow-hidden">
+            {paletteColors.map((color: ColorData, i: number) => (
+              <div
+                key={i}
+                className="flex-1 h-full"
+                style={{ background: color.hex }}
+                title={color.name}
+              />
+            ))}
+          </div>
+        </div>
+        
         <button
           onClick={shuffle}
-          className="btn bg-black text-white px-4 py-2 rounded shadow w-full sm:w-auto text-base"
+          className="mt-4 px-4 py-2 rounded bg-black text-white shadow"
         >
-          Shuffle
-        </button>
-        <button
-          onClick={handleCopy}
-          className="btn bg-white text-black px-4 py-2 rounded shadow w-full sm:w-auto text-base"
-        >
-          Copy HEX Codes
+          Shuffle Combination
         </button>
       </div>
     </div>
